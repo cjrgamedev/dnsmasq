@@ -518,6 +518,15 @@
 #Example zeroconf
 #txt-record=_http._tcp.example.com,name=value,paper=A4
 
+# Change the following line to enable dnsmasq to serve SPF records.
+# This record type was meant as an alternative to storing SPF data
+# in TXT records. Support for it was discontinued in RFC 7208 but some
+# older SPF implementations may still use it.
+
+#Example SPF
+#spf-record=example.com,"v=spf1 a -all"
+
+#
 # Provide an alias for a "local" DNS name. Note that this _only_ works
 # for targets which are names from DHCP or /etc/hosts. Give host
 # "bert" another name, bertrand
