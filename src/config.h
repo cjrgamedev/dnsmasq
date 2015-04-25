@@ -4,12 +4,12 @@
    it under the terms of the GNU General Public License as published by
    the Free Software Foundation; version 2 dated June, 1991, or
    (at your option) version 3 dated 29 June, 2007.
- 
+
    This program is distributed in the hope that it will be useful,
    but WITHOUT ANY WARRANTY; without even the implied warranty of
    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    GNU General Public License for more details.
-     
+
    You should have received a copy of the GNU General Public License
    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -88,6 +88,10 @@
 #  define T_OPT 41
 #endif
 
+#ifndef T_SPF
+#  define T_SPF 99
+#endif
+
 #ifndef T_TKEY
 #  define T_TKEY 249
 #endif
@@ -97,9 +101,9 @@
 #endif
 
 
-/* Follows system specific switches. If you run on a 
-   new system, you may want to edit these. 
-   May replace this with Autoconf one day. 
+/* Follows system specific switches. If you run on a
+   new system, you may want to edit these.
+   May replace this with Autoconf one day.
 
 HAVE_LINUX_NETWORK
 HAVE_BSD_NETWORK
@@ -112,9 +116,9 @@ HAVE_BROKEN_RTC
    for timing, and keep lease lengths rather than expiry times
    in its leases file. This also make dnsmasq "flash disk friendly".
    Normally, dnsmasq tries very hard to keep the on-disk leases file
-   up-to-date: rewriting it after every renewal.  When HAVE_BROKEN_RTC 
-   is in effect, the lease file is only written when a new lease is 
-   created, or an old one destroyed. (Because those are the only times 
+   up-to-date: rewriting it after every renewal.  When HAVE_BROKEN_RTC
+   is in effect, the lease file is only written when a new lease is
+   created, or an old one destroyed. (Because those are the only times
    it changes.) This vastly reduces the number of file writes, and makes
    it viable to keep the lease file on a flash filesystem.
    NOTE: when enabling or disabling this, be sure to delete any old
@@ -127,35 +131,35 @@ HAVE_DHCP
    define this to get dnsmasq's DHCP server.
 
 HAVE_GETOPT_LONG
-   define this if you have GNU libc or GNU getopt. 
+   define this if you have GNU libc or GNU getopt.
 
 HAVE_ARC4RANDOM
    define this if you have arc4random() to get better security from DNS spoofs
-   by using really random ids (OpenBSD) 
+   by using really random ids (OpenBSD)
 
 HAVE_SOCKADDR_SA_LEN
-   define this if struct sockaddr has sa_len field (*BSD) 
+   define this if struct sockaddr has sa_len field (*BSD)
 
 HAVE_DBUS
    Define this if you want to link against libdbus, and have dnsmasq
-   define some methods to allow (re)configuration of the upstream DNS 
+   define some methods to allow (re)configuration of the upstream DNS
    servers via DBus.
 
 NOTES:
-   For Linux you should define 
+   For Linux you should define
       HAVE_LINUX_NETWORK
       HAVE_GETOPT_LONG
-  you should NOT define 
+  you should NOT define
       HAVE_ARC4RANDOM
       HAVE_SOCKADDR_SA_LEN
 
-   For *BSD systems you should define 
+   For *BSD systems you should define
      HAVE_BSD_NETWORK
      HAVE_SOCKADDR_SA_LEN
-   and you MAY define  
+   and you MAY define
      HAVE_ARC4RANDOM - OpenBSD and FreeBSD and NetBSD version 2.0 or later
-     HAVE_GETOPT_LONG - NetBSD, later FreeBSD 
-                       (FreeBSD and OpenBSD only if you link GNU getopt) 
+     HAVE_GETOPT_LONG - NetBSD, later FreeBSD
+                       (FreeBSD and OpenBSD only if you link GNU getopt)
 
 */
 
@@ -184,7 +188,7 @@ NOTES:
 #undef HAVE_ARC4RANDOM
 #undef HAVE_SOCKADDR_SA_LEN
 /* Never use fork() on uClinux. Note that this is subtly different from the
-   --keep-in-foreground option, since it also  suppresses forking new 
+   --keep-in-foreground option, since it also  suppresses forking new
    processes for TCP connections and disables the call-a-script on leasechange
    system. It's intended for use on MMU-less kernels. */
 #define NO_FORK
@@ -234,7 +238,7 @@ NOTES:
 #define HAVE_SOCKADDR_SA_LEN
 /* Define before sys/socket.h is included so we get socklen_t */
 #define _BSD_SOCKLEN_T_
- 
+
 #elif defined(__NetBSD__)
 #define HAVE_BSD_NETWORK
 #define HAVE_GETOPT_LONG
@@ -248,8 +252,8 @@ NOTES:
 #undef HAVE_SOCKADDR_SA_LEN
 #define _XPG4_2
 #define __EXTENSIONS__
-#define ETHER_ADDR_LEN 6 
- 
+#define ETHER_ADDR_LEN 6
+
 #endif
 
 /* Decide if we're going to support IPv6 */
@@ -272,4 +276,3 @@ NOTES:
 #  undef HAVE_IPV6
 #  define ADDRSTRLEN 16 /* 4*3 + 3 dots + NULL */
 #endif
-
